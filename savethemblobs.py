@@ -14,6 +14,7 @@
 import sys, os, argparse
 import requests
 import json
+import time
 
 __version__ = '1.0'
 
@@ -124,6 +125,8 @@ def main(passedArgs = None):
 			save_path = os.path.join(args.save_dir, '%s_%s_%s-%s.shsh' % (ecid, model, f['version'], f['build']))
 
 			if not os.path.exists(save_path) or args.overwrite_apple or args.overwrite:
+				print 'Waiting (because we can't just bombard TSS)'
+				time.sleep(5)
 				print 'Requesting blobs from Apple for %s/%s' % (model, f['build'])
 				r = request_blobs_from_apple(board, f['build'], ecid, cpid, bdid)
 
